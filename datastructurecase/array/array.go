@@ -35,7 +35,7 @@ func NewArrayList[T any](cap int) *List[T] {
 }
 
 func (list *List[T]) Add(element T) {
-	list.elements = append[T](list.elements, element)
+	list.elements = append(list.elements, element)
 }
 
 func (list *List[T]) Get(i int) (T, error) {
@@ -49,11 +49,11 @@ func (list *List[T]) Remove(i int) (int, error) {
 	err = checkIndex(i, list.Size(), err)
 	esL := list.elements[:i]
 	esR := list.elements[i+1:]
-	esL = append[T](esL, esR...)
+	esL = append(esL, esR...)
 	list.elements = esL
 	return i, err
 }
 
 func (list *List[T]) Size() int {
-	return len[T](list.elements)
+	return len(list.elements)
 }
