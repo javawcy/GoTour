@@ -8,43 +8,43 @@ type Array[T any] interface {
 	Size() int
 }
 
-type List[T any] struct {
+type DynamicArray[T any] struct {
 	elements []T
 }
 
-type ListError struct {
+type DynamicArrayError struct {
 	msg string
 }
 
-func (e *ListError) Error() string {
+func (e *DynamicArrayError) Error() string {
 	return e.msg
 }
 
 func checkIndex(index, length int, err error) error {
 	if index < 0 || index >= length {
-		err = &ListError{"invariable index"}
+		err = &DynamicArrayError{"invariable index"}
 	}
 	return err
 }
 
-func NewArrayList[T any](cap int) *List[T] {
-	arr := List[T]{
+func NewArray[T any](cap int) Array[T] {
+	arr := DynamicArray[T]{
 		elements: make([]T, 0, cap),
 	}
 	return &arr
 }
 
-func (list *List[T]) Add(element T) {
+func (list *DynamicArray[T]) Add(element T) {
 	list.elements = append(list.elements, element)
 }
 
-func (list *List[T]) Get(i int) (T, error) {
+func (list *DynamicArray[T]) Get(i int) (T, error) {
 	var err error
 	err = checkIndex(i, list.Size(), err)
 	return list.elements[i], err
 }
 
-func (list *List[T]) Remove(i int) (int, error) {
+func (list *DynamicArray[T]) Remove(i int) (int, error) {
 	var err error
 	err = checkIndex(i, list.Size(), err)
 	esL := list.elements[:i]
@@ -54,6 +54,6 @@ func (list *List[T]) Remove(i int) (int, error) {
 	return i, err
 }
 
-func (list *List[T]) Size() int {
+func (list *DynamicArray[T]) Size() int {
 	return len(list.elements)
 }
