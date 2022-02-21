@@ -33,7 +33,7 @@ func main() {
 		fmt.Println("YEZ")
 	}
 
-	//swich 默认break,fallthrough需要指定
+	//switch 默认break,fallthrough需要指定
 	switch os := runtime.GOOS; os {
 	case "drawin":
 		fmt.Println("MAC")
