@@ -27,7 +27,7 @@ type ArrayStack[T any] struct {
 }
 
 //NewArrayStack init method
-func NewArrayStack[T any](cap int) *ArrayStack[T] {
+func NewArrayStack[T any](cap int) Stack[T] {
 	return &ArrayStack[T]{
 		elements: make([]T, cap),
 		cap:      cap,
@@ -37,7 +37,7 @@ func NewArrayStack[T any](cap int) *ArrayStack[T] {
 
 //Impl Push
 func (s *ArrayStack[T]) Push(t T) error {
-	var err *ArrayStackError
+	var err error
 	if s.size == s.cap {
 		err = &ArrayStackError{"stack is full"}
 	} else {

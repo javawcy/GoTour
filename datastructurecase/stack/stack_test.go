@@ -26,7 +26,7 @@ func TestNewArrayStack(t *testing.T) {
 }
 
 func TestStackIDL(t *testing.T) {
-	var s *ArrayStack[int]
+	var s Stack[int]
 	s = NewArrayStack[int](5)
 	var size int = 2
 	s.Push(1)
