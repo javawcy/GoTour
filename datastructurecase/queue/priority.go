@@ -46,6 +46,7 @@ func (q *PriorityIntQueue[T]) EnQueue(t T) error {
 		for i := q.size - 1; i >= 0; i-- {
 			if t >= q.elements[i] {
 				q.elements[i+1] = t
+				break
 			} else {
 				q.elements[i+1] = q.elements[i]
 				if i == 0 {
