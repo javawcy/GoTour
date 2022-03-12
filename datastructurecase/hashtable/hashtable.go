@@ -4,12 +4,11 @@ import (
 	"strings"
 )
 
-//HashTableError hashtable error
-type HashTableError struct {
+type hashTableError struct {
 	msg string
 }
 
-func (err *HashTableError) Error() string {
+func (err *hashTableError) Error() string {
 	return err.msg
 }
 
@@ -18,7 +17,7 @@ func FindFirstNoRepeatSubStr(str string) (string, error) {
 	var err error
 	subStr := ""
 	if len(str) == 0 {
-		err = &HashTableError{"Str can't be empty or nil"}
+		err = &hashTableError{"Str can't be empty or nil"}
 	} else if len(str) == 1 {
 		subStr = str
 	} else {
