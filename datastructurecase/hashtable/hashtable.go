@@ -19,7 +19,7 @@ type Map[K, V any] interface {
 	ContainsValue(v V) bool
 }
 
-//golang map key need compareble types
+//Key golang map key need compareble types
 type Key interface {
 	bool | int | int32 | int64 | float32 | float64 | string | uint | uint32 | uint64 | complex64 | complex128
 }
