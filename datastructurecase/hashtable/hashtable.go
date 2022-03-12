@@ -1,41 +1,61 @@
 package hashtable
 
-import (
-	"strings"
-)
+import "reflect"
 
-type hashTableError struct {
+//HashMapError hashtable custome error
+type HashMapError struct {
 	msg string
 }
 
-func (err *hashTableError) Error() string {
+func (err *HashMapError) Error() string {
 	return err.msg
 }
 
-//FindFirstNoRepeatSubStr 查找第一个不重复子串
-func FindFirstNoRepeatSubStr(str string) (string, error) {
-	var err error
-	subStr := ""
-	if len(str) == 0 {
-		err = &hashTableError{"Str can't be empty or nil"}
-	} else if len(str) == 1 {
-		subStr = str
-	} else {
-		m := make(map[string]int)
-		arr := strings.Split(str, "")
-		for i := 0; i < len(arr); i++ {
-			if _, ok := m[arr[i]]; ok {
-				m[arr[i]] = m[arr[i]] + 1
-			} else {
-				m[arr[i]] = 1
-			}
-		}
-		for i := 0; i < len(arr); i++ {
-			if m[arr[i]] == 1 {
-				subStr = arr[i]
-				break
-			}
+//Map IDL
+type Map[K, V any] interface {
+	Put(k K, v V)
+	Get(k K) V
+	ContainsKey(k K) bool
+	ContainsValue(v V) bool
+}
+
+//golang map key need compareble types
+type key interface {
+	bool | int | int32 | int64 | float32 | float64 | string | uint | uint32 | uint64 | complex64 | complex128
+}
+
+//NewHashMap new method
+func NewHashMap[K key, V any]() *HashMap[K, V] {
+	return &HashMap[K, V]{
+		m: make(map[K]V),
+	}
+}
+
+//HashMap  Map Impl
+type HashMap[K key, V any] struct {
+	m map[K]V
+}
+
+func (h *HashMap[K, V]) Put(k K, v V) {
+	h.m[k] = v
+}
+
+func (h *HashMap[K, V]) ContainsKey(k K) bool {
+	_, ok := h.m[k]
+	return ok
+}
+
+func (h *HashMap[K, V]) Get(k K) V {
+	return h.m[k]
+}
+
+func (h *HashMap[K, V]) ContainsValue(v V) bool {
+	b := false
+	for _, value := range h.m {
+		if reflect.DeepEqual(value, v) {
+			b = true
+			break
 		}
 	}
-	return subStr, err
+	return b
 }
