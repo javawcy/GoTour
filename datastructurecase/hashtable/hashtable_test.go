@@ -15,6 +15,7 @@ func TestFindFirstNoRepeatSubStr(t *testing.T) {
 		{"repeatStr1", args{"a green apple"}, "g", false},
 		{"repeatStr2", args{"a"}, "a", false},
 		{"repeatStr3", args{""}, "", true},
+		{"repeatStr4", args{"abab"}, "", false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

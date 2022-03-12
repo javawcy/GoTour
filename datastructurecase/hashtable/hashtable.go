@@ -16,7 +16,7 @@ func (err *HashTableError) Error() string {
 //FindFirstNoRepeatSubStr 查找第一个不重复子串
 func FindFirstNoRepeatSubStr(str string) (string, error) {
 	var err error
-	var subStr string
+	subStr := ""
 	if len(str) == 0 {
 		err = &HashTableError{"Str can't be empty or nil"}
 	} else if len(str) == 1 {
@@ -24,18 +24,17 @@ func FindFirstNoRepeatSubStr(str string) (string, error) {
 	} else {
 		m := make(map[string]int)
 		arr := strings.Split(str, "")
-		for i := 0; i < len(arr)-1; i++ {
+		for i := 0; i < len(arr); i++ {
 			if _, ok := m[arr[i]]; ok {
-				delete(m, arr[i])
+				m[arr[i]] = m[arr[i]] + 1
 			} else {
-				m[arr[i]] = i
+				m[arr[i]] = 1
 			}
 		}
-		compare := len(str) - 1
-		for k, v := range m {
-			if v <= compare {
-				subStr = k
-				compare = v
+		for i := 0; i < len(arr); i++ {
+			if m[arr[i]] == 1 {
+				subStr = arr[i]
+				break
 			}
 		}
 	}
