@@ -20,19 +20,19 @@ type Map[K, V any] interface {
 }
 
 //golang map key need compareble types
-type key interface {
+type Key interface {
 	bool | int | int32 | int64 | float32 | float64 | string | uint | uint32 | uint64 | complex64 | complex128
 }
 
-//NewHashMap new method
-func NewHashMap[K key, V any]() *HashMap[K, V] {
+//NewHashMap init method
+func NewHashMap[K Key, V any]() *HashMap[K, V] {
 	return &HashMap[K, V]{
 		m: make(map[K]V),
 	}
 }
 
 //HashMap  Map Impl
-type HashMap[K key, V any] struct {
+type HashMap[K Key, V any] struct {
 	m map[K]V
 }
 
