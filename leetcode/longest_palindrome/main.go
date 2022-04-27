@@ -53,5 +53,5 @@ func check(start, end int, arr []byte) []byte {
 
 //动态规划
 func longestPalindrome1(s string) string {
-
+	return ""
 }
